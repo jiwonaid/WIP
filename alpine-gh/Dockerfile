@@ -1,7 +1,5 @@
 FROM alpine/git:v2.34.2
 
-RUN wget https://github.com/cli/cli/releases/download/v2.10.1/gh_2.10.1_linux_amd64.tar.gz \
-    && tar -xvf gh_2.10.1_linux_amd64.tar.gz \
-    && chmod +x gh_2.10.1_linux_amd64/bin/gh \
-    && mv gh_2.10.1_linux_amd64/bin/gh /usr/local/bin/ \
-    && rm -rf gh_2.10.1_linux_amd64.tar.gz gh_2.10.1_linux_amd64
+ARG VERSION=2.10.1
+RUN wget -O - https://github.com/cli/cli/releases/download/v${VERSION}/gh_${VERSION}_linux_amd64.tar.gz \
+    | tar zxvf - gh_${VERSION}_linux_amd64/bin/gh -C /usr/local/bin --strip-components=2
